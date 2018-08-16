@@ -3,7 +3,7 @@
 The docker-compose.yml file will deploy the following containers:
 
 * Jenkins
-* ![alt text][jenkins]
+![alt text][jenkins]
 * Artifactory
 * Puppet
 * Gogs
