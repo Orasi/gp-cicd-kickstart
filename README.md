@@ -2,12 +2,10 @@
 
 The docker-compose.yml file will deploy the following containers:
 
-* Jenkins
-* ![alt text][jenkins]
+* [Jenkins](https://hub.docker.com/r/jenkins/jenkins/)
 * Artifactory
 * Puppet
 * Gogs
 
-[jenkins]: https://hub.docker.com/r/jenkins/jenkins "How to list zip file contents"
 
 
