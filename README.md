@@ -24,7 +24,6 @@ Click on the links to download the appropriate Desktop / Server platform install
 #### 3. Clone the repository run Docker Compose from the same directory:
 
 ```bash
-cd gp-cicd-kickstart
-docker-compose up -d
+cd gp-cicd-kickstart && docker-compose up -d
 ```
 
