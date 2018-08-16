@@ -1,1 +1,1 @@
-# ci-kickstart
+# gp-ci-kickstart
