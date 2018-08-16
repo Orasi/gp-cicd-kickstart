@@ -25,7 +25,6 @@ Click on the links to download the appropriate Desktop / Server platform install
 
 ```bash
 git clone https://github.com/Orasi/gp-cicd-kickstart.git 
-cd gp-cicd-kickstart && docker-compose up -d
 ```
 
 #### 4. Run Docker Compose from the same directory:
