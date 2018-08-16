@@ -28,4 +28,10 @@ git clone https://github.com/Orasi/gp-cicd-kickstart.git
 cd gp-cicd-kickstart && docker-compose up -d
 ```
 
-#### 4. You should then be able to access each of the applications at the 
+#### 4. Run Docker Compose from the same directory:
+
+```bash
+cd gp-cicd-kickstart && docker-compose up -d
+```
+
+#### 5. You should then be able to access each of the applications at the 
