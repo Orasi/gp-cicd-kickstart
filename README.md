@@ -37,5 +37,5 @@ cd gp-cicd-kickstart && docker-compose up -d
 
 * [Jenkins](http://localhost:8080)
 * [Artifactory](http://localhost:8081)
-* [Puppet](http://localhost:8102
+* [Puppet](http://localhost:8102)
 * [Gogs](http://localhost:3000)
