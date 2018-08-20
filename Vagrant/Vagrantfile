@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "puppetagent-1" do |puppetagent1|
+
+    puppetagent1.vm.box = "bento/centos-7.2"
+    # puppetagent1.vbguest.auto_update = false
+    puppetagent1.vm.network "private_network", ip: "192.168.10.22"
+    puppetagent1.vm.hostname = "puppetagent-1"
+
+    puppetagent1.vm.provision "shell", inline: <<-SHELL
+       sudo echo "192.168.10.21 puppet-test" | sudo tee -a /etc/hosts
+       sudo echo "192.168.10.1 puppet" | sudo tee -a /etc/hosts
+       sudo timedatectl set-timezone America/New_York
+       sudo rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+       sudo yum -y install puppet-agent
+    SHELL
+
+    puppetagent1.vm.provision "puppet_server" do |puppetagentnode|
+      puppetagentnode.puppet_node = "puppetagent-1"
+      puppetagentnode.puppet_server = "puppet"
+      # puppetagentnode.options = "--verbose --waitforcert 10"
+      puppetagentnode.options = "--verbose --debug"
+    end
+
+  end
+end
