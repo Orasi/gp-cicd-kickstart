@@ -33,7 +33,8 @@ git clone https://github.com/Orasi/gp-cicd-kickstart.git
 cd gp-cicd-kickstart && docker-compose up -d
 ```
 
-#### 5. You should then be able to access each of the applications at th
+#### 5. You should then be able to access each of the applications at the URL's below on any modern browser
+
 
 * [Jenkins](http://localhost:8080)
 * [Artifactory](http://localhost:8081)
