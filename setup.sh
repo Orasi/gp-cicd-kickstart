@@ -12,4 +12,4 @@ pip install docker-compose
 yum upgrade python* -y
 git clone https://github.com/Orasi/gp-cicd-kickstart.git /home/azurevm/gp-cicd-kickstart
 cd /home/azurevm/gp-cicd-kickstart/
-docker compose up -d
+docker-compose up -d
