@@ -10,4 +10,4 @@ yum install epel-release -y
 yum install -y python-pip -y
 pip install docker-compose 
 yum upgrade python* -y
-git clone https://github.com/Orasi/gp-cicd-kickstart.git
+git clone https://github.com/Orasi/gp-cicd-kickstart.git /azurevm/gp-cicd-kickstart
