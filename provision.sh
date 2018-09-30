@@ -2,7 +2,7 @@
 
 #echo "192.168.10.22 jenkins-master" | tee -a /etc/hosts
 #echo "192.168.10.1 puppet" | tee -a /etc/hosts
-echo "40.87.93.245 puppet" | tee -a /etc/hosts
+echo "168.62.36.48 puppet" | tee -a /etc/hosts
 timedatectl set-timezone America/New_York
 rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 yum -y install puppet-agent
