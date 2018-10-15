@@ -1,25 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
 Vagrant.configure("2") do |config|
-  config.vm.define "puppetagent-1" do |puppetagent1|
+  config.vm.define "jenkins-master" do |jenkins_master|
 
-    puppetagent1.vm.box = "bento/centos-7.2"
-    # puppetagent1.vbguest.auto_update = false
-    puppetagent1.vm.network "private_network", ip: "192.168.10.22"
-    puppetagent1.vm.hostname = "puppetagent-1"
+    jenkins_master.vm.box = "bento/centos-7.2"
+    jenkins_master.vm.network "private_network", ip: "192.168.10.22"
+    jenkins_master.vm.hostname = "jenkins-master"
 
-    puppetagent1.vm.provision "shell", inline: <<-SHELL
-       sudo echo "192.168.10.21 puppet-test" | sudo tee -a /etc/hosts
+    jenkins_master.vm.provision "shell", inline: <<-SHELL
+       sudo echo "192.168.10.22 jenkins-master" | sudo tee -a /etc/hosts
+       sudo echo "192.168.10.1 puppet" | sudo tee -a /etc/hosts
+       sudo echo "10.0.2.2 puppet" | sudo tee -a /etc/hosts
+       sudo timedatectl set-timezone America/New_York
+       sudo rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+       sudo yum -y install puppet-agent
+       echo "* * * * * root /opt/puppetlabs/bin/puppet agent -t >>/var/log/puppet-agent.log 2>&1" >> /etc/cron.d/puppet-agent
+       sudo systemctl restart crond
+    SHELL
+
+    jenkins_master.vm.provision "puppet_server" do |jenkinsmaster|
+      jenkinsmaster.puppet_node = "jenkins-master"
+      jenkinsmaster.puppet_server = "puppet"
+      jenkinsmaster.options = "--verbose --debug"
+    end
+
+  end
+
+  config.vm.define "jenkins-slave-1" do |jenkins_slave_1|
+
+    jenkins_slave_1.vm.box = "bento/centos-7.2"
+    jenkins_slave_1.vm.network "private_network", ip: "192.168.10.23"
+    jenkins_slave_1.vm.hostname = "jenkins-slave-1"
+
+    jenkins_slave_1.vm.provision "shell", inline: <<-SHELL
+       sudo echo "192.168.10.23 jenkins-slave-1" | sudo tee -a /etc/hosts
+       sudo echo "192.168.10.22 jenkins-master.domain.com" | sudo tee -a /etc/hosts
+       sudo echo "10.0.2.2 puppet" | sudo tee -a /etc/hosts
        sudo echo "192.168.10.1 puppet" | sudo tee -a /etc/hosts
        sudo timedatectl set-timezone America/New_York
        sudo rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
        sudo yum -y install puppet-agent
+       echo "* * * * * root /opt/puppetlabs/bin/puppet agent -t >>/var/log/puppet-agent.log 2>&1" >> /etc/cron.d/puppet-agent
+       sudo systemctl restart crond
     SHELL
 
-    puppetagent1.vm.provision "puppet_server" do |puppetagentnode|
-      puppetagentnode.puppet_node = "puppetagent-1"
-      puppetagentnode.puppet_server = "puppet"
-      # puppetagentnode.options = "--verbose --waitforcert 10"
-      puppetagentnode.options = "--verbose --debug"
+    jenkins_slave_1.vm.provision "puppet_server" do |slave_1|
+      slave_1.puppet_node = "jenkins-slave-1"
+      slave_1.puppet_server = "puppet"
+      slave_1.options = "--verbose --debug"
     end
-
   end
 end
