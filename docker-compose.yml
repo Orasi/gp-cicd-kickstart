@@ -34,7 +34,7 @@ services:
   puppet:
     container_name: puppet
     hostname: puppet
-    image: puppet/puppetserver
+    image: 'puppet/puppetserver:5.3.4'
     ports:
       - 8140:8140
     volumes:
